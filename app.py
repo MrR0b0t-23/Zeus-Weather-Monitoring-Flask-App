@@ -8,8 +8,7 @@ app = Flask(__name__)
 app.config['DEBUG'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://uzhfmxqswtarzz:6023a52de30ae3e4bcc60da220ded3e030c585d4c8fdc335ae2bbc598079b2d9@ec2-34-203-91-150.compute-1.amazonaws.com:5432/d6msipoere0v0b'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy()
-db.init_app(app)
+db = SQLAlchemy(app)
 
 class userData(db.Model):
     __tablename__ = 'User_Database'
@@ -163,4 +162,5 @@ def pushBack():
     return redirect(url_for('map_page'))
 
 if __name__ == '__main__':
-    app.run(port= 8000, debug= True)
+    db.create_all()
+    app.run()
