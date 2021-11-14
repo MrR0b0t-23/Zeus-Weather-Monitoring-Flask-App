@@ -118,12 +118,12 @@ def map_page():
                                 "humidity": location_data.humidityData, "light":location_data.lightData }
                     return render_template('MapPageHTML.html', context = context)
                 
-         location_data = mapData.query.filter(mapData.locationName.like('Kelambakkam')).first()
-         start_coord = (location_data.latitude, location_data.longitude)
-         folium_map = folium.Map(location=start_coord, zoom_start=15, tiles="OpenStreetMap")
-         results = db.session.query(mapData).all()
+        location_data = mapData.query.filter(mapData.locationName.like('Kelambakkam')).first()
+        start_coord = (location_data.latitude, location_data.longitude)
+        folium_map = folium.Map(location=start_coord, zoom_start=15, tiles="OpenStreetMap")
+        results = db.session.query(mapData).all()
             
-         for item in results:
+        for item in results:
             Popup = str(item.locationName) + " Fog:" + str(item.fogData) + " Temperature:" + str(item.temperatureData) + " Humidity:" + str(item.humidityData) + " Light:" + str(item.lightData)
             folium.CircleMarker(location = [item.latitude, item.longitude],
             radius = 65, popup = Popup ,fill=True).add_to(folium_map)
