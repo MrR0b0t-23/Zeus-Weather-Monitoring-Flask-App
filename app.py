@@ -87,6 +87,7 @@ def map_page():
     if Authentication == "True":
         if request.method == 'POST':
             location = request.form.get("location")
+            location = str(location)
             location_data = mapData.query.filter(mapData.locationName.like(location)).first()
             if location_data:
                 start_coord = (location_data.latitude, location_data.longitude)
