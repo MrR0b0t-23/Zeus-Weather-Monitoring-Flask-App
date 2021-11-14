@@ -159,12 +159,13 @@ def variable_page():
     Data = APIData.query.filter(APIData.APICode.like(API_var)).first()
     if Data:
         Data = mapData.query.filter(mapData.locationName.like(locationName_var)).filter(mapData.latitude.like(latitude_var)).filter(mapData.longitude.like(longitude_var)).first()
+        print("\n", Data)
         if Data:
             resp = make_response(redirect(url_for('map_page')))
-            Data.fogData = fogData_var
-            Data.temperatureData = tempData_var
-            Data.humidityData = humiData_var
-            Data.lightData = lightData_var
+            Data.fogData = int(fogData_var)
+            Data.temperatureData = int(tempData_var)
+            Data.humidityData = int(humiData_var)
+            Data.lightData = int(lightData_var)
             Data.dateTime = datetime.datetime.now()
             db.session.commit()
             return resp
