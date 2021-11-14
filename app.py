@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template, request,  redirect, url_for, make_response
 import datetime
 import folium
-import pandas as pd
 
 app = Flask(__name__)
 app.config['DEBUG'] = False
@@ -153,17 +152,6 @@ def variable_page():
             Data.dateTime = datetime.datetime.now()
             db.session.commit()
 
-    return redirect(url_for('map_page'))
-
-@app.route('/pushBack')
-def pushBack():
-    df = pd.read_excel("Mapdata.xlsx")
-    for i in range(len(df)):
-        Data = mapData(locationName = df.loc[i]['Area'], latitude = df.loc[i]['Latitude'], 
-                        longitude = df.loc[i]['Longitude'], dateTime=datetime.datetime.now(), fogData= 0, 
-                        temperatureData=0, humidityData=0, lightData=0)
-        db.session.add(Data)
-        db.session.commit()
     return redirect(url_for('map_page'))
 
 if __name__ == '__main__':
