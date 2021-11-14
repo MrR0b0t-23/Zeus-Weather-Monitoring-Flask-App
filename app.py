@@ -148,14 +148,22 @@ def logout_page():
 @app.route('/variables')
 def variable_page():
     API_var = request.args.get('API', default = '****', type = str)
-    locationName_var = request.args.get('location', default = 'Chennai', type = str)
+    locationName_var = request.args.get('location', default = 'Kelambakkam', type = str)
     latitude_var = request.args.get('latitude', default = 13.067439, type = float)
     longitude_var = request.args.get('longitude', default = 80.237617, type = float)
     fogData_var = request.args.get('fogData', default = 0, type = int)
     tempData_var = request.args.get('tempData', default = 0, type = int)
     humiData_var = request.args.get('humiData', default = 0, type = int)
     lightData_var = request.args.get('lightData', default = 0, type = int)
-
+    
+    locationName_var = str(locationName_var)
+    latitude_var = float(latitude_var)
+    longitude_var = float(longitude_var)
+    fogData_var = int(fogData_var)
+    tempData_var = int(tempData_var)
+    humiData_var = int(humiData_var)
+    lightData_var = int(lightData_var)
+    
     Data = APIData.query.filter(APIData.APICode.like(API_var)).first()
     if Data:
         Data = mapData.query.filter(mapData.locationName.like(locationName_var)).filter(mapData.latitude.like(latitude_var)).filter(mapData.longitude.like(longitude_var)).first()
