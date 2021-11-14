@@ -62,7 +62,9 @@ def auth_login(username, password):
    token = userData.query.filter(userData.Username.like(username)).filter(userData.Password.like(password)).first()
    print("\n", token)
    if token:
+      print("AUTH SUCCESSFULL")
       return True
+   print("AUTH FAILED")
    return False
 
 @app.route('/', methods =[ 'POST', 'GET'])
