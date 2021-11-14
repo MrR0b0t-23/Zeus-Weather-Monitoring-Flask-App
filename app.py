@@ -165,9 +165,10 @@ def variable_page():
     lightData_var = int(lightData_var)
     
     Data = APIData.query.filter(APIData.APICode.like(API_var)).first()
+    print("\n", Data, "API SUCCESSFULL")
     if Data:
         Data = mapData.query.filter(mapData.locationName.like(locationName_var)).filter(mapData.latitude.like(latitude_var)).filter(mapData.longitude.like(longitude_var)).first()
-        print("\n", Data)
+        print("\n", Data, "UPDATE SUCCESSFULL")
         if Data:
             resp = make_response(redirect(url_for('map_page')))
             Data.fogData = int(fogData_var)
