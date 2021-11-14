@@ -60,6 +60,7 @@ def auth_login(username, password):
    username = str(username)
    password = str(password)
    token = userData.query.filter(userData.Username.like(username)).filter(userData.Password.like(password)).first()
+   print("\n", token)
    if token:
       return True
    return False
