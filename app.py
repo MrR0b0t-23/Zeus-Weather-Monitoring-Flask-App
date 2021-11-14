@@ -160,12 +160,14 @@ def variable_page():
     if Data:
         Data = mapData.query.filter(mapData.locationName.like(locationName_var)).filter(mapData.latitude.like(latitude_var)).filter(mapData.longitude.like(longitude_var)).first()
         if Data:
+            resp = make_response(redirect(url_for('map_page')))
             Data.fogData = fogData_var
             Data.temperatureData = tempData_var
             Data.humidityData = humiData_var
             Data.lightData = lightData_var
             Data.dateTime = datetime.datetime.now()
             db.session.commit()
+            return resp
 
     return redirect(url_for('map_page'))
 
