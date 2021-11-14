@@ -59,11 +59,8 @@ def auth_login(username, password):
    username = str(username)
    password = str(password)
    token = userData.query.filter(userData.Username.like(username)).filter(userData.Password.like(password)).first()
-   print("\n", token)
    if token:
-      print("AUTH SUCCESSFULL")
       return True
-   print("AUTH FAILED")
    return False
 
 @app.route('/', methods =[ 'POST', 'GET'])
@@ -89,6 +86,7 @@ def map_page():
             location = request.form.get("location")
             location = str(location)
             location_data = mapData.query.filter(mapData.locationName.like(location)).first()
+            print("\n",location_data)
             if location_data:
                 start_coord = (location_data.latitude, location_data.longitude)
                 folium_map = folium.Map(location=start_coord, zoom_start=15, tiles="OpenStreetMap")
@@ -104,21 +102,21 @@ def map_page():
                             "humidity": location_data.humidityData, "light":location_data.lightData }
                 return render_template('MapPageHTML.html', context = context)
     
-        location_data = mapData.query.filter(mapData.locationName.like('Kelambakkam')).first()
-        if location_data:
-                start_coord = (location_data.latitude, location_data.longitude)
-                folium_map = folium.Map(location=start_coord, zoom_start=15, tiles="OpenStreetMap")
-                results = db.session.query(mapData).all()
-                for item in results:
-                    Popup = str(item.locationName) + " Fog:" + str(item.fogData) + " Temperature:" + str(item.temperatureData) + " Humidity:" + str(item.humidityData) + " Light:" + str(item.lightData)
-                    folium.CircleMarker(location = [item.latitude, item.longitude],
-                            radius = 65, popup = Popup ,fill=True).add_to(folium_map)
-                    folium.Marker(location = [item.latitude, item.longitude],
-                            radius = 25, popup = Popup ,fill=True).add_to(folium_map)
-                folium_map.save('static/DataHTML.html')
-                context = { "locationName": location_data.locationName,"fogData": location_data.fogData, "temperatureData": location_data.temperatureData,
-                            "humidity": location_data.humidityData, "light":location_data.lightData }
-                return render_template('MapPageHTML.html', context = context)
+            location_data = mapData.query.filter(mapData.locationName.like('Kelambakkam')).first()
+            if location_data:
+                    start_coord = (location_data.latitude, location_data.longitude)
+                    folium_map = folium.Map(location=start_coord, zoom_start=15, tiles="OpenStreetMap")
+                    results = db.session.query(mapData).all()
+                    for item in results:
+                        Popup = str(item.locationName) + " Fog:" + str(item.fogData) + " Temperature:" + str(item.temperatureData) + " Humidity:" + str(item.humidityData) + " Light:" + str(item.lightData)
+                        folium.CircleMarker(location = [item.latitude, item.longitude],
+                                radius = 65, popup = Popup ,fill=True).add_to(folium_map)
+                        folium.Marker(location = [item.latitude, item.longitude],
+                                radius = 25, popup = Popup ,fill=True).add_to(folium_map)
+                    folium_map.save('static/DataHTML.html')
+                    context = { "locationName": location_data.locationName,"fogData": location_data.fogData, "temperatureData": location_data.temperatureData,
+                                "humidity": location_data.humidityData, "light":location_data.lightData }
+                    return render_template('MapPageHTML.html', context = context)
 
     return redirect(url_for('login_page'))
 
