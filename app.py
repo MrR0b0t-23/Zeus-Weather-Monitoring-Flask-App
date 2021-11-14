@@ -57,6 +57,8 @@ class APIData(db.Model):
         self.APICode= APICode
 
 def auth_login(username, password):
+   username = str(username)
+   password = str(password)
    token = userData.query.filter(userData.Username.like(username)).filter(userData.Password.like(password)).first()
    if token:
       return True
