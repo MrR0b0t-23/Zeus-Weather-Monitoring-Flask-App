@@ -149,10 +149,10 @@ def logout_page():
 def variable_page():
     API_var = request.args.get('API', default = '****', type = str)
     locationName_var = request.args.get('location', default = 'Kelambakkam', type = str)
-    fogData_var = request.args.get('fogData', default = 0, type = int)
-    tempData_var = request.args.get('tempData', default = 0, type = int)
-    humiData_var = request.args.get('humiData', default = 0, type = int)
-    lightData_var = request.args.get('lightData', default = 0, type = int)
+    fogData_var = request.args.get('fogData', default = 0, type = str)
+    tempData_var = request.args.get('tempData', default = 0, type = str)
+    humiData_var = request.args.get('humiData', default = 0, type = str)
+    lightData_var = request.args.get('lightData', default = 0, type = str)
     
     locationName_var = str(locationName_var)
     fogData_var = int(fogData_var)
