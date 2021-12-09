@@ -133,7 +133,7 @@ def map_page():
             context = { "locationName": location_data.locationName,"fogData": location_data.fogData, "temperatureData": location_data.temperatureData,
                                 "humidity": location_data.humidityData, "light":location_data.lightData }
             return render_template('MapPageHTML.html', context = context)
-        
+      
     return redirect(url_for('login_page'))
 
 @app.route('/logout')
